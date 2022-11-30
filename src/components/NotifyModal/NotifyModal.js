@@ -1,0 +1,60 @@
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+
+const HEIGHT_MODAL = 150;
+const WIDTH = Dimensions.get('window').width;
+const NotifyModal = (props) => {
+    const CloseModal = (bool) => {
+        props.changeModalVisible(bool);
+    };
+    return (
+        <TouchableOpacity disabled={true} style={styles.container}>
+            <View style={styles.modal}>
+                <View style={styles.textView}>
+                    <Text style={styles.text}>Header</Text>
+                    <Text style={styles.text}>Description</Text>
+                </View>
+                <View style={styles.buttonView}>
+                    <TouchableOpacity onPress={() => CloseModal(false)} styles={styles.touchableOpacity}>
+                        <Text style={[styles.text, { color: 'blue' }]}>Ok</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    modal: {
+        height: HEIGHT_MODAL,
+        width: WIDTH - 80,
+        paddingTop: 10,
+        backgroundColor: 'white',
+        borderRadius: 10,
+    },
+    textView: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    text: {
+        margin: 5,
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    buttonView: {
+        width: '100%',
+        flexDirection: 'row',
+    },
+    touchableOpacity: {
+        flex: 1,
+        paddingVertical: 10,
+        alignItems: 'center',
+    },
+});
+
+export default NotifyModal;
