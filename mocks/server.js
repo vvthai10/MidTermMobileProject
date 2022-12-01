@@ -52,5 +52,11 @@ createServer({
 
             return ListUsers.find((user) => user.phone === phone);
         });
+
+        this.get("/movies", (schema, request) => {
+            let id = request.params.id
+
+            return schema.movies.find(id)
+        })
     },
 });
