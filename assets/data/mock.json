@@ -1,0 +1,37 @@
+[
+    {
+        "price": "$2.0",
+        "priceOriginal": "$3.0",
+        "time": "14-12-2022",
+        "film": "ONE PIECE FILM RED",
+        "Room": "i4"
+    },
+    {
+        "price": "$2.0",
+        "priceOriginal": "$3.0",
+        "time": "16-12-2022",
+        "airline": "ONE PIECE FILM RED",
+        "Room": "i4"
+    },
+    {
+        "price": "$2.5",
+        "priceOriginal": "$3.0",
+        "time": "14-12-2022",
+        "airline": "CHIẾN BINH BÁO ĐEN 2: WAKANDA BẤT DIỆT",
+        "Room": "i4"
+    },
+    {
+        "price": "$2.3",
+        "priceOriginal": "$3.0",
+        "time": "15-12-2022",
+        "airline": "CHIẾN BINH BÁO ĐEN 2: WAKANDA BẤT DIỆT",
+        "Room": "i4"
+    },
+    {
+        "price": "$2.3",
+        "priceOriginal": "$3.0",
+        "time": "12-12-2022",
+        "airline": "KHỈ CON LON TON THẾ GIỚI",
+        "Room": "i4"
+    }
+]

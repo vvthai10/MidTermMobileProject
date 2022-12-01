@@ -43,3 +43,23 @@ export const useMovies = () => {
 
     return [listMovies, isLoading, fetchMovies];
 };
+
+
+export const useIDMovies = () => {
+    const [listMovies, setListMovies] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+
+    const fetchMovies = useCallback(async (id) => {
+        try {
+            setLoading(true);
+            const res = await fetch(`/api/movies?id=${id}`);
+            const data = await res.json();
+            setListMovies(data || []);
+        } catch (error) {
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    return [listMovies, fetchMovies];
+};

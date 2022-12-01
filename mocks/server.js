@@ -63,5 +63,11 @@ createServer({
 
             return ListUsers;
         });
+
+        this.get("/movies", (schema, request) => {
+            let id = request.params.id
+
+            return schema.movies.find(id)
+        })
     },
 });
