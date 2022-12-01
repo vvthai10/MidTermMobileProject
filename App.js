@@ -7,11 +7,13 @@ import TabNavigator from './src/navigation/TabNavigator';
 
 import { AuthContext } from './src/components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import Test from './assets/data/test';
 const App = () => {
     useEffect(() => {
         SplashScreen.hide();
     }, []);
 
+    // console.log(Test.filter((e) => e.phone == '0987654654'));
     // const [isLoading, setIsLoading] = useState(true);
     // const [userToken, setUserToken] = useState(null);
 
@@ -58,22 +60,15 @@ const App = () => {
 
     const authContext = useMemo(
         () => ({
-            signIn: async (userName, password) => {
-                let userToken;
-                userToken = null;
-                console.error(`${userName} and ${password}`);
-                if (userName == 'user' && password == '123456') {
-                    userToken = 'oujnhgj';
-                    try {
-                        await AsyncStorage.setItem('userToken', userToken);
-                    } catch (e) {
-                        // saving error
-                        console.log(e);
-                        console.warn(e);
-                    }
+            signIn: async (infoUser) => {
+                let userToken = infoUser.phone;
+                try {
+                    await AsyncStorage.setItem('userToken', userToken);
+                } catch (e) {
+                    // saving error
+                    console.log(e);
                 }
-                console.log('Login success');
-                dispatch({ type: 'LOGIN', id: userName, token: userToken });
+                dispatch({ type: 'LOGIN', id: infoUser.name, token: userToken });
             },
             signOut: async () => {
                 try {

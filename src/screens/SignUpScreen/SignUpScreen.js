@@ -1,19 +1,69 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import { AuthContext } from '../../components/context';
+import NotifyModal from '../../components/NotifyModal/NotifyModal';
 
 const SignUpScreen = () => {
     const { control, handleSubmit, watch } = useForm();
     const pw = watch('password');
     const navigation = useNavigation();
 
-    const onRegisterPressed = () => {
-        console.warn('Register');
-        navigation.navigate('ConfirmPhone');
+    const { signUp } = useContext(AuthContext);
+    const [infoUser, setInfoUser] = useState([]);
+    const [isHasNotify, setHasNotify] = useState(false);
+    const [infoNotify, setInfonotify] = useState();
+
+    const fetchCheckHaveUser = async (phone) => {
+        try {
+            const res = await fetch(`/api/signin?phone=${phone}`);
+            const data = await res.json();
+            setInfoUser(data || []);
+        } catch (error) {}
+    };
+
+    const fetchAddUser = async (params) => {
+        console.log(params);
+        try {
+            const res = await fetch(`/api/signup`, params);
+            const data = await res.json();
+            // setInfoUser(data || []);
+            console.log(data);
+        } catch (error) {}
+    };
+
+    const onRegisterPressed = (data) => {
+        const name = data.name;
+        const phone = data.phoneNumber;
+        const password = data.password;
+        const passwordRepeat = data.passwordRepeat;
+
+        // Trường hợp 1: Số điện thoại đã được đăng kí
+        fetchCheckHaveUser(phone);
+        if (infoUser.length !== 0) {
+            setInfonotify({
+                title: 'Tài khoản tồn tại',
+                description: `Số điện thoại này đã được đăng kí`,
+            });
+            setHasNotify(true);
+        } else {
+            console.log('Đăng kí');
+            // Trường hợp 2: Đăng kí thành công
+            const params = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, phone: phone, password: password, passwordRepeat: passwordRepeat }),
+            };
+
+            fetchAddUser(params);
+        }
+
+        // signUp();
+        // navigation.navigate('ConfirmPhone');
     };
 
     const onSignInPressed = () => {
@@ -29,13 +79,22 @@ const SignUpScreen = () => {
         console.warn('onPrivacyPressed');
     };
 
+    const changeErrorType = (type) => {
+        setHasNotify(type);
+    };
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.root}>
                 <Text style={styles.title}>Create an account</Text>
-
                 <CustomInput
-                    name="phonenumber"
+                    name="name"
+                    control={control}
+                    placeholder="Họ và tên"
+                    rules={{ required: 'Bạn cần nhập họ và tên' }}
+                />
+                <CustomInput
+                    name="phoneNumber"
                     control={control}
                     placeholder="Số điện thoại"
                     rules={{ required: 'Bạn cần nhập số điện thoại' }}
@@ -48,7 +107,7 @@ const SignUpScreen = () => {
                     rules={{ required: 'Bạn cần nhập mật khẩu' }}
                 />
                 <CustomInput
-                    name="password-repeat"
+                    name="passwordRepeat"
                     control={control}
                     placeholder="Nhập lại mật khẩu"
                     secureTextEntry={true}
@@ -68,6 +127,17 @@ const SignUpScreen = () => {
                     của chúng tôi.
                 </Text>
                 <CustomButton onPress={onSignInPressed} text="Bạn đã có tài khoản? Đăng nhập" type="TERTIARY" />
+
+                <Modal
+                    transparent={true}
+                    animationType="fade"
+                    visible={isHasNotify}
+                    nRequestClose={() => {
+                        console.log(true);
+                    }}
+                >
+                    <NotifyModal changeErrorType={changeErrorType} info={infoNotify} />
+                </Modal>
             </View>
         </ScrollView>
     );

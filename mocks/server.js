@@ -33,7 +33,7 @@ createServer({
 
             // var date = Date.parse(curDate);
             // console.warn(curDate >= '12/30/2022');
-            if (type == 2) {
+            if (type === 2) {
                 // console.error(type);
                 return ListMovies.filter(GetDateAfter).filter((movie) =>
                     movie.category.toLowerCase().includes(categoryNeed.slice(5)),
@@ -49,8 +49,19 @@ createServer({
 
         this.get('/login', (schema, req) => {
             const phone = req.queryParams.phone;
+            console.log(phone);
+            const res = ListUsers.filter((user) => user.phone === phone);
+            console.log(res);
+            return res;
+        });
 
-            return ListUsers.find((user) => user.phone === phone);
+        this.post('/signup', (schema, req) => {
+            const attrs = JSON.parse(req.requestBody);
+            console.warn(attrs);
+            console.log(attrs);
+            ListUsers.push(attrs);
+
+            return ListUsers;
         });
     },
 });

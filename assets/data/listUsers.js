@@ -17,6 +17,12 @@ const ListUsers = [
         password: '123456',
         phone: '0987654123',
     },
+    {
+        id: '4',
+        name: 'Lê Minh Trí',
+        password: '123456',
+        phone: '0123',
+    },
 ];
 
 export default ListUsers;
