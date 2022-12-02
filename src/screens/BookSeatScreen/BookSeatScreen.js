@@ -8,17 +8,29 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 const seatPrice = [45000, 60000, 100000];
 
 const Seat = (props) => {
+    let isBooked = 0;
+    for (const i in props.listBooked) {
+        if (props.listBooked[i] == props.name) {
+            isBooked = 1;
+            break;
+        }
+    }
     const brdColor = props.brdColor;
-    const bkgrColor = props.bkgrColor;
+    const bkgrColor = (!isBooked) ? props.bkgrColor : 'grey';
     const [isPicked, setPicked] = useState(0);
     const onPress = () => {
-        setPicked(isPicked === 0 ? 1 : 0);
-        if (!isPicked) {
-            props._psh(seatPrice[props.isVip]);
-            props._addSeat(0, props.name);
-        } else {
-            props._psh(-seatPrice[props.isVip]);
-            props._addSeat(1, props.name);
+        if (!isBooked) {
+            setPicked(isPicked === 0 ? 1 : 0);
+            if (!isPicked) {
+                props._psh(seatPrice[props.isVip]);
+                props._addSeat(0, props.name);
+            } else {
+                props._psh(-seatPrice[props.isVip]);
+                props._addSeat(1, props.name);
+            }
+        }
+        else {
+            alert('Chỗ đã được đặt!')
         }
     };
     return (
@@ -42,6 +54,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 2}
@@ -50,6 +63,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 3}
@@ -58,6 +72,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 4}
@@ -66,6 +81,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 5}
@@ -74,6 +90,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 6}
@@ -82,6 +99,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 7}
@@ -90,6 +108,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 8}
@@ -98,6 +117,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 9}
@@ -106,6 +126,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 10}
@@ -114,6 +135,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
             <Seat
                 name={props.char + 11}
@@ -122,6 +144,7 @@ const SeatRow = (props) => {
                 bkgrColor={props.bkgrColor}
                 _psh={props.psh}
                 _addSeat={props.addSeat}
+                listBooked={props.listBooked}
             />
         </View>
     );
@@ -158,7 +181,6 @@ const Descrip = (props) => {
         </View>
     );
 };
-
 const Footer = (props) => {
     const _ = () => {
         let l = '';
@@ -171,10 +193,10 @@ const Footer = (props) => {
     const list = _();
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-            <View style={{ flexDirection: 'column', flex: 0.6 }}>
+            <View style={{ flexDirection: 'column', flex: 0.9 }}>
                 <View
                     style={
-                        ([styles.footer_text_box], { flex: 0.7, marginTop: 20, marginLeft: 10, borderBottomWidth: 1 })
+                        ([styles.footer_text_box], { flex: 0.7, marginTop: 20, marginLeft: 10, })
                     }
                 >
                     <Text>Rạp: {props._prevProps[0]}</Text>
@@ -198,9 +220,25 @@ const Footer = (props) => {
 const BookSeatScreen = () => {
     const route = useRoute();
     const props = route.params;
-    console.log(`Seat  ${props}`);
 
     const navigation = useNavigation();
+
+
+    var RNFS = require('react-native-fs');
+    var path = RNFS.DownloadDirectoryPath + '/seatDB.json';
+    const [seatState, setSeatState] = useState({});
+    RNFS.readFile(path, 'ascii')
+        .then((res) => {
+            console.log(res);
+            setSeatState(JSON.parse(res));
+        })
+
+    let listBookedSeat = [];
+    for (const i in seatState) {
+        if (seatState[i].id == props.idChairs) {
+            listBookedSeat = seatState[i].list;
+        }
+    }
 
     const [total, pushTotal] = useState(0);
     const [selectedSeat, changeSelectedSeat] = useState([]);
@@ -225,6 +263,7 @@ const BookSeatScreen = () => {
             idChairs: props.idChairs,
             listSeat: selectedSeat,
             totalSeatPrice: total,
+            seatState: seatState,
         };
         navigation.navigate('BookFood', detail);
     };
@@ -236,17 +275,17 @@ const BookSeatScreen = () => {
             <Text style={styles.screen}>SCREEN</Text>
             <ScrollView style={{ borderWidth: 1, flex: 1 }} horizontal={true}>
                 <ScrollView>
-                    <SeatRow char="A" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="B" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="C" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="D" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="E" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="F" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="G" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="H" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="J" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="K" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} />
-                    <SeatRow char="L" isVip={2} bkgrColor="pink" psh={handleChangeTotal} addSeat={handleAddSeat} />
+                    <SeatRow char="A" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="B" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="C" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="D" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="E" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="F" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="G" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="H" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="J" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="K" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow char="L" isVip={2} bkgrColor="pink" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
                 </ScrollView>
             </ScrollView>
             <View style={styles.description}>
@@ -300,7 +339,6 @@ const styles = StyleSheet.create({
     footer_click_btn: {
         height: 50,
         width: 50,
-        marginLeft: 70,
         marginRight: 2,
         marginVertical: 65,
         borderRadius: 20,

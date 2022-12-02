@@ -17,6 +17,18 @@ const App = () => {
     // const [isLoading, setIsLoading] = useState(true);
     // const [userToken, setUserToken] = useState(null);
 
+    const seatState = require('./assets/data/seat.json');
+    const RNFS = require('react-native-fs');
+    const path = RNFS.DownloadDirectoryPath + '/seatDB.json';
+    // write the file
+    
+    RNFS.writeFile(path, JSON.stringify(seatState), 'utf8')
+        .then((success) => {
+            console.log('FILE WRITTEN!');
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
     const initialLoginState = {
         isLoading: true,
         userName: null,
