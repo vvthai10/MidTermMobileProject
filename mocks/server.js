@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { createServer } from 'miragejs';
 import ListMovies from '../assets/data/listMovies';
 import ListUsers from '../assets/data/listUsers';
@@ -8,15 +9,31 @@ if (window.server) {
 }
 
 const GetDateBefore = (item) => {
-    const curDate = new Date().toLocaleDateString();
+    let curDate = new Date();
+    curDate.setDate(curDate.getDate() + 5);
+    curDate = curDate.toLocaleDateString();
+    curDate = curDate.split('/');
+    curDate = `${curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`}/${
+        curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`
+    }/${curDate[2]}`;
     const date = item.premiere;
+    // console.log(`ngay khoi chieu: ${date}`);
+    // console.log(`ngay co suat chieu: ${curDate}`);
     return curDate >= date;
 };
 
 const GetDateAfter = (item) => {
-    const curDate = new Date().toLocaleDateString();
+    let curDate = new Date();
+    curDate.setDate(curDate.getDate() + 5);
+    curDate = curDate.toLocaleDateString();
+    curDate = curDate.split('/');
+    curDate = `${curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`}/${
+        curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`
+    }/${curDate[2]}`;
     const date = item.premiere;
-    return !(curDate >= date);
+    // console.log(`ngay khoi chieu: ${date}`);
+    // console.log(`ngay co suat chieu: ${curDate}`);
+    return curDate < date;
 };
 
 createServer({
@@ -24,7 +41,8 @@ createServer({
         this.namespace = 'api';
 
         this.get('/movies/top', () => {
-            return ListMovies.sort((a, b) => b.buyTickets - a.buyTickets);
+            let list = ListMovies.sort((a, b) => b.ratings - a.ratings);
+            return list.filter(GetDateBefore);
         });
 
         this.get('/movies', (schema, req) => {
@@ -32,9 +50,11 @@ createServer({
             const categoryNeed = req.queryParams.category;
             console.warn(categoryNeed.slice(5).toLowerCase());
 
+            console.error(`Type is: ${type}`);
+
             // var date = Date.parse(curDate);
             // console.warn(curDate >= '12/30/2022');
-            if (type === 2) {
+            if (type == 2) {
                 // console.error(type);
                 return ListMovies.filter(GetDateAfter).filter((movie) =>
                     movie.category.toLowerCase().includes(categoryNeed.slice(5)),

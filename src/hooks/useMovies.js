@@ -44,7 +44,6 @@ export const useMovies = () => {
     return [listMovies, isLoading, fetchMovies];
 };
 
-
 export const useIDMovies = () => {
     const [listMovies, setListMovies] = useState([]);
     const [isLoading, setLoading] = useState(false);

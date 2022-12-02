@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -10,13 +12,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useTopMovies } from '../../hooks/useMovies';
 import ListMovies from '../../../assets/data/listMovies';
+import Logo from '../../../assets/images/logo.png';
+import conan from '../../../assets/images/conan.png';
+import minion from '../../../assets/images/minion.png';
+import fast from '../../../assets/images/fast.png';
 const HomeScreen = () => {
     // const theme = useTheme();
-    const item = {
-        name: 'OnePiece Red Film',
-        image: 'https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/240x388/c88460ec71d04fa96e628a21494d2fd3/k/e/keyvisual_for_promotion-01_1_.jpg',
-        premiere: '11/10/2022',
-    };
 
     const category = [
         {
@@ -65,36 +66,38 @@ const HomeScreen = () => {
     return (
         <ScrollView style={styles.container}>
             <StatusBar barStyle="light-content" />
-            <Text>LOGO CGV</Text>
+            <View
+                style={[
+                    styles.logo,
+                    { maxHeight: 60, borderBottomWidth: 1 },
+                    { alignItems: 'center', justifyContent: 'center', padding: 20 },
+                ]}
+            >
+                <Image
+                    style={[styles.logo, { height: 30 }, { alignItems: 'center', justifyContent: 'center' }]}
+                    source={Logo}
+                    resizeMode="contain"
+                />
+                <Text>Kênh đặt vé lớn nhất Việt Nam</Text>
+            </View>
             <View style={styles.sliderContainer}>
                 <Swiper autoplay height={200} activeDotColor="#FF6347">
                     <View style={styles.slide}>
-                        <Image
-                            source={{
-                                uri: item.image,
-                            }}
-                            resizeMode="cover"
-                            style={styles.sliderImage}
-                        />
+                        <Image source={conan} resizeMode="cover" style={styles.sliderImage} />
                     </View>
                     <View style={styles.slide}>
-                        <Image
-                            source={{
-                                uri: item.image,
-                            }}
-                            resizeMode="cover"
-                            style={styles.sliderImage}
-                        />
+                        <Image source={minion} resizeMode="cover" style={styles.sliderImage} />
+                    </View>
+                    <View style={styles.slide}>
+                        <Image source={fast} resizeMode="cover" style={styles.sliderImage} />
                     </View>
                 </Swiper>
             </View>
-
             <ScrollView horizontal style={styles.categoryContainer}>
                 {category.map((categoryItem, id) => {
                     return <CategoryFilm key={id} item={categoryItem} />;
                 })}
             </ScrollView>
-
             <View style={styles.cardsWrapper}>
                 <Text>Phim nổi bật</Text>
                 <ListCardFilm movies={movies} />

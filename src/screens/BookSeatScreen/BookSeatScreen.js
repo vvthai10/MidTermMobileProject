@@ -1,5 +1,8 @@
+/* eslint-disable no-shadow */
+/* eslint-disable curly */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { ScrollView, StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 const seatPrice = [45000, 60000, 100000];
@@ -9,7 +12,7 @@ const Seat = (props) => {
     const bkgrColor = props.bkgrColor;
     const [isPicked, setPicked] = useState(0);
     const onPress = () => {
-        setPicked(isPicked == 0 ? 1 : 0);
+        setPicked(isPicked === 0 ? 1 : 0);
         if (!isPicked) {
             props._psh(seatPrice[props.isVip]);
             props._addSeat(0, props.name);
@@ -21,7 +24,7 @@ const Seat = (props) => {
     return (
         <View style={[styles.seat_container]}>
             <TouchableOpacity
-                style={[styles.seat, { backgroundColor: isPicked ? 'red' : bkgrColor, borderColor: brdColor }]}
+                style={[styles.seat, { backgroundColor: isPicked ? '#e71a0f' : bkgrColor, borderColor: brdColor }]}
                 onPress={onPress}
             >
                 <Text style={styles.text}>{props.name}</Text>
@@ -128,7 +131,7 @@ const Descrip = (props) => {
         <View style={{ flexDirection: 'row' }}>
             <View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ backgroundColor: 'red', height: 20, width: 20, margin: 5 }} />
+                    <View style={{ backgroundColor: '#e71a0f', height: 20, width: 20, margin: 5 }} />
                     <Text> Checked </Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -142,7 +145,7 @@ const Descrip = (props) => {
                     <Text> Thường </Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ borderColor: 'red', borderWidth: 1, height: 20, width: 20, margin: 5 }} />
+                    <View style={{ borderColor: '#e71a0f', borderWidth: 1, height: 20, width: 20, margin: 5 }} />
                     <Text> Vip </Text>
                 </View>
             </View>
@@ -161,7 +164,7 @@ const Footer = (props) => {
         let l = '';
         for (const i in props._listSeat) {
             l += props._listSeat[i];
-            if (i != props._listSeat.length - 1) l += ', ';
+            if (i !== props._listSeat.length - 1) l += ', ';
         }
         return l;
     };
@@ -215,9 +218,9 @@ const BookSeatScreen = () => {
         pushTotal(total + n);
     };
     const handleAddSeat = (i, n) => {
-        if (i == 0) changeSelectedSeat([...selectedSeat, n]);
+        if (i === 0) changeSelectedSeat([...selectedSeat, n]);
         else {
-            const list = selectedSeat.filter((i) => i != n);
+            const list = selectedSeat.filter((i) => i !== n);
             changeSelectedSeat(list);
         }
     };

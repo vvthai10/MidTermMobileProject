@@ -38,6 +38,7 @@ const ChooseCinemaScreen = () => {
     }
 
     const route = useRoute();
+    console.warn(route.params);
     const idMovie = route.params.idFilm;
     const nameMovie = route.params.nameFilm;
 
@@ -79,7 +80,7 @@ const ChooseCinemaScreen = () => {
         console.log('re render effect');
         fetchDetailFilm(idMovie, dateChoose);
         console.log(`Length: ${infoMovieDate.length}`);
-        console.log(`Length: ${infoMovieDate.detal_date}`);
+        console.log(`Length: ${infoMovieDate.detail_date}`);
         console.log(infoMovieDate);
     }, [dateChoose]);
 
@@ -96,30 +97,30 @@ const ChooseCinemaScreen = () => {
                 </View>
             ) : (
                 <ScrollView style={styles.containerChooseTime}>
-                    {infoMovieDate.detal_date === undefined ? (
+                    {infoMovieDate.detail_date === undefined ? (
                         <Text>Không có lịch chiếu vào hôm nay</Text>
                     ) : (
                         <>
-                            {infoMovieDate.detal_date.map((item, i) => {
+                            {infoMovieDate.detail_date.map((item, i) => {
                                 return (
                                     <View key={i} style={styles.boxCinema}>
-                                        <Text style={styles.nameCinema}>{item.ten_rap}</Text>
+                                        <Text style={styles.nameCinema}>{item.address}</Text>
                                         <ScrollView horizontal style={styles.containerTime}>
-                                            {item.suat_chieu.map((value, index) => {
+                                            {item.showtime.map((value, index) => {
                                                 return (
                                                     <TouchableOpacity
                                                         key={index}
                                                         style={styles.boxTime}
                                                         onPress={() => [
                                                             onChooseTimePressed(
-                                                                item.ten_rap,
-                                                                value.gio,
-                                                                value.ten_phong,
-                                                                value.chi_tiet_ghe,
+                                                                item.address,
+                                                                value.hour,
+                                                                value.room,
+                                                                value.seats,
                                                             ),
                                                         ]}
                                                     >
-                                                        <Text style={styles.textTime}>{value.gio}</Text>
+                                                        <Text style={styles.textTime}>{value.hour}</Text>
                                                     </TouchableOpacity>
                                                 );
                                             })}
@@ -175,12 +176,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     nameCinema: {
+        paddingLeft: 5,
         color: 'black',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
         paddingBottom: 20,
     },
-    containerTime: {},
+    containerTime: {
+        paddingBottom: 5,
+    },
     boxTime: {
         margin: 5,
         borderWidth: 1,

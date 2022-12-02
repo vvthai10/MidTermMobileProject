@@ -1,10 +1,10 @@
+/* eslint-disable no-shadow */
+/* eslint-disable quotes */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, Pressable, ActivityIndicator } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { useIDMovies } from '../../hooks/useMovies';
-import ListMovies from '../../../assets/data/listMovies';
-
 import StarRating from '../../components/StarRating';
 
 const DetailFilmScreen = () => {
@@ -34,7 +34,9 @@ const DetailFilmScreen = () => {
 
     const onBookTicketsPressed = () => {
         // console.warn('Buy tickets');
-        navigation.navigate('ChooseCinema', { idFilm: infoMovie.idFilm, nameFilm: infoMovie.name });
+        const params = { idFilm: infoMovie.idFilm, nameFilm: infoMovie.nameFilm };
+        console.warn(params);
+        navigation.navigate('ChooseCinema', params);
     };
 
     if (isLoading) {
@@ -142,7 +144,11 @@ const styles = StyleSheet.create({
     },
     titleHeading: { fontWeight: 'bold', fontSize: 12, color: '#444' },
     textHeading: { fontSize: 12, color: '#444' },
-
+    text: {
+        fontSize: 14,
+        color: 'white',
+        fontWeight: '   bold',
+    },
     container: {
         paddingTop: 20,
         width: '100%',

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 10,
         alignItems: 'center',
-        borderColor: 'red',
+        borderColor: '#e71a0f',
     },
 });
 

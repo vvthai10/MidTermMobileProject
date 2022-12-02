@@ -10,7 +10,7 @@ const CustomInput = ({ control, name, rules = {}, placeholder, secureTextEntry }
             rules={rules}
             render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <>
-                    <View style={[styles.container, { borderColor: error ? 'red' : '#e8e8e8' }]}>
+                    <View style={[styles.container, { borderColor: error ? '#e71a0f' : '#e8e8e8' }]}>
                         <TextInput
                             value={value}
                             onChangeText={onChange}
@@ -20,7 +20,9 @@ const CustomInput = ({ control, name, rules = {}, placeholder, secureTextEntry }
                             secureTextEntry={secureTextEntry}
                         />
                     </View>
-                    {error && <Text styles={{ color: 'red', alignSelf: 'stretch' }}>{error.message || 'Error'}</Text>}
+                    {error && (
+                        <Text styles={{ color: '#e71a0f', alignSelf: 'stretch' }}>{error.message || 'Error'}</Text>
+                    )}
                 </>
             )}
         />

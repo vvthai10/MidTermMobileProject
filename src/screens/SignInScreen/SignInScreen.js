@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState, useCallback } from 'react';
 import { View, Image, StyleSheet, useWindowDimensions, ScrollView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -53,13 +54,13 @@ const SignInScreen = () => {
             console.log('Không tồn tại user');
             setInfonotify({
                 title: 'Tài khoản không tồn tại',
-                description: `Chưa có số tài khoản nào đăng kí bằng số điện thoại này.`,
+                description: 'Chưa có số tài khoản nào đăng kí bằng số điện thoại này.',
             });
             setHasNotify(true);
         } else if (password !== infoUser[0].password) {
             setInfonotify({
                 title: 'Mật khẩu không chính xác',
-                description: `Mật khẩu bạn nhập chưa chính xác`,
+                description: 'Mật khẩu bạn nhập chưa chính xác',
             });
             setHasNotify(true);
         } else {

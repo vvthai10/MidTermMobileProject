@@ -24,8 +24,8 @@ const ListCardFilm = ({ movies = [] }) => {
                 </View>
                 <View style={styles.cardInfo}>
                     <Text style={styles.cardTitle}>{item.name}</Text>
-                    <StarRating ratings={4} reviews={99} />
-                    <Text style={styles.cardDetails}>Ngày khởi chiếu: 19/12/2022</Text>
+                    <StarRating ratings={item.ratings} reviews={item.reviews} />
+                    <Text style={styles.cardDetails}>{`Ngày khởi chiếu: ${item.premiere}`}</Text>
                 </View>
             </Pressable>
         );
