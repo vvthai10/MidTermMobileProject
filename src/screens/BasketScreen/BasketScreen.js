@@ -27,9 +27,7 @@ const Detail = (props) => {
                 <Text>{props.cinName}</Text>
                 <Text>{'Cinema ' + props.room}</Text>
                 <Text>{'Seats: ' + props.listSeat}</Text>
-                <Text style={{ color: '#AD2B33', fontWeight: 'bold' }}>
-                    {'Total Payment: ' + _sum}
-                </Text>
+                <Text style={{ color: '#AD2B33', fontWeight: 'bold' }}>{'Total Payment: ' + _sum}</Text>
             </View>
         </View>
     );
@@ -49,8 +47,6 @@ const BasketScreen = () => {
     };
     return (
         <View style={styles.container}>
-
-
             <View style={styles.datail_container}>
                 <Detail
                     filmName={props.filmName}

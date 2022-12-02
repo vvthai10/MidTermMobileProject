@@ -171,7 +171,6 @@ const Footer = (props) => {
     const list = _();
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-
             <View style={{ flexDirection: 'column', flex: 0.6 }}>
                 <View
                     style={
@@ -190,7 +189,7 @@ const Footer = (props) => {
             </View>
 
             <TouchableOpacity style={styles.footer_click_btn} onPress={props.onNextPressed}>
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, }}>NEXT</Text>
+                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15 }}>NEXT</Text>
             </TouchableOpacity>
         </View>
     );

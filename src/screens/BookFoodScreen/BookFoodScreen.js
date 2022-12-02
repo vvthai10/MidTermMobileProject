@@ -103,7 +103,6 @@ const Footer = (props) => {
     };
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-
             <View style={{ flex: 0.6, margin: 10 }}>
                 <ScrollView style={styles.footer_text_box}>
                     {list.map((item, index) => {
@@ -141,7 +140,7 @@ const BookFoodScreen = () => {
 
     const onNextPressed = () => {
         let _list = listPick.filter((e) => e.nums != 0);
-        detail = {
+        const detail = {
             id: props.id,
             filmName: props.filmName,
             cinName: props.cinName,
@@ -153,11 +152,9 @@ const BookFoodScreen = () => {
             date: props.date,
             listPickedFood: _list,
             totalFoodPrice: total,
-        }
+        };
         navigation.navigate('Basket', detail);
-    }
-
-
+    };
 
     const onPrevPressed = () => {
         navigation.navigate('BookSeatScreen');
@@ -170,7 +167,12 @@ const BookFoodScreen = () => {
                 })}
             </ScrollView>
             <View style={styles.footer}>
-                <Footer list={listPick} addTotal={addTotal} onNextPressed={onNextPressed} onPrevPressed={onPrevPressed} />
+                <Footer
+                    list={listPick}
+                    addTotal={addTotal}
+                    onNextPressed={onNextPressed}
+                    onPrevPressed={onPrevPressed}
+                />
             </View>
         </View>
     );
