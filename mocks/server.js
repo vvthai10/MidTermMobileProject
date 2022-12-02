@@ -18,21 +18,21 @@ const GetDateBefore = (item) => {
     var date1 = new Date(curDate);
     var date2 = new Date(date);
 
-    // curDate = curDate.split('/');
-    // curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
-    //     curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
-    // }/${curDate[2]}`;
+    curDate = curDate.split('/');
+    curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
+        curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
+    }/${curDate[2]}`;
     // console.log(`ngay khoi chieu: ${date}`);
     // console.log(`ngay co suat chieu: ${curDate}`);
 
-    //best to use .getTime() to compare dates
     // if (date1.toLocaleDateString() >= date2.toLocaleDateString()) {
     //     console.log('Phim đã được công chiếu');
     // } else {
     //     console.log('Hummm.');
     // }
 
-    return date1.toLocaleDateString() >= date2.toLocaleDateString();
+    // return date1.toLocaleDateString() >= date2.toLocaleDateString();
+    return curDate >= date;
 };
 
 const GetDateAfter = (item) => {
@@ -43,14 +43,15 @@ const GetDateAfter = (item) => {
     var date1 = new Date(curDate);
     var date2 = new Date(date);
 
-    // curDate = curDate.split('/');
-    // curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
-    //     curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
-    // }/${curDate[2]}`;
+    curDate = curDate.split('/');
+    curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
+        curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
+    }/${curDate[2]}`;
     //
     // console.log(`ngay khoi chieu: ${date}`);
     // console.log(`ngay co suat chieu: ${curDate}`);
-    return date1.toLocaleDateString() >= date2.toLocaleDateString();
+    // return date1.toLocaleDateString() < date2.toLocaleDateString();
+    return curDate < date;
 };
 
 createServer({

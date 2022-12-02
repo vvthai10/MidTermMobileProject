@@ -4,7 +4,6 @@ import { ScrollView, StyleSheet, Text, View, Button, TouchableOpacity, Image } f
 import { useRoute, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const FoodTag = (props) => {
     return (
         <View style={styles.food_tag}>
@@ -13,8 +12,6 @@ const FoodTag = (props) => {
         </View>
     );
 };
-
-
 
 const Detail = (props) => {
     console.log(props);
@@ -54,20 +51,19 @@ const BasketScreen = () => {
     const props = route.params;
     const _seatState = props.seatState;
     const _total = props.totalSeatPrice + props.totalFoodPrice;
-    const [token,setToken] = useState('');
+    const [token, setToken] = useState('');
 
     const getInfoUser = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
         setToken(userToken);
     };
-    getInfoUser()
+    getInfoUser();
 
     const navigation = useNavigation();
     const onNextPressed = () => {
-        for(const i in _seatState){
-            
-            if(_seatState[i].id == props.idChairs){
-                for(const j in props.listSeat){
+        for (const i in _seatState) {
+            if (_seatState[i].id == props.idChairs) {
+                for (const j in props.listSeat) {
                     _seatState[i].list.push(props.listSeat[j]);
                 }
             }
@@ -75,37 +71,37 @@ const BasketScreen = () => {
         var RNFS = require('react-native-fs');
         var path = RNFS.DownloadDirectoryPath + '/seatDB.json';
         RNFS.writeFile(path, JSON.stringify(_seatState), 'utf8')
-        .then((success) => {
-            console.log('FILE WRITTEN!');
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-        alert('Đặt vé thành công! ')
-        const resultData = [{
-            user: token,
-            filmName: props.filmName,
-            cinName: props.cinName,
-            time: props.time,
-            room: props.room,
-            idChairs: props.idChairs,
-            listSeat: props.listSeat,
-            totalPrice: _total,
-            date: props.date,
-            listPickedFood: props.listPickedFood,
-        }]
+            .then((success) => {
+                console.log('FILE WRITTEN!');
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        alert('Đặt vé thành công! ');
+        const resultData = [
+            {
+                user: token,
+                filmName: props.filmName,
+                cinName: props.cinName,
+                time: props.time,
+                room: props.room,
+                idChairs: props.idChairs,
+                listSeat: props.listSeat,
+                totalPrice: _total,
+                date: props.date,
+                listPickedFood: props.listPickedFood,
+            },
+        ];
         path = RNFS.DownloadDirectoryPath + '/listTicket.json';
         RNFS.appendFile(path, JSON.stringify(resultData), 'utf8')
-        .then((success) => {
-            console.log('FILE WRITTEN!');
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-        console.log(resultData)
+            .then((success) => {
+                console.log('FILE WRITTEN!');
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        console.log(resultData);
         navigation.navigate('Main');
-        
-
     };
     const onPrevPressed = () => {
         navigation.navigate('BookSeatScreen');
