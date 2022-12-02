@@ -103,7 +103,7 @@ const Footer = (props) => {
     };
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-            <View style={{ flex: 0.6, margin: 10 }}>
+            <View style={{ flex: 0.8, margin: 10 }}>
                 <ScrollView style={styles.footer_text_box}>
                     {list.map((item, index) => {
                         if (item.nums != 0) {
@@ -111,7 +111,7 @@ const Footer = (props) => {
                         }
                     })}
                 </ScrollView>
-                <View style={{ flex: 0.2, margin: 5 }}>
+                <View style={{ flex: 0.2, margin: 2 }}>
                     <Text>Tổng: {countTotal(list)}</Text>
                 </View>
             </View>
@@ -131,7 +131,7 @@ const BookFoodScreen = () => {
     const navigation = useNavigation();
     const [total, addTotal] = useState(0);
     const [listPick, addListPick] = useState(listPicked);
-    // console.log(listPick);
+    
     const handleAddFoodDetail = (name, num, price) => {
         const l = listPick.filter((element) => element.text != name);
         console.log(l);
@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
         borderColor: 'black',
     },
     footer: {
+        borderTopWidth: 1,
         flex: 0.3,
     },
 
@@ -236,18 +237,17 @@ const styles = StyleSheet.create({
     ////////////////////////////////
     footer_text_box: {
         marginLeft: 5,
-        flex: 0.8,
+        flex: 1,
         borderBottomWidth: 1,
         //justifyContent: 'center',
     },
     footer_click_btn: {
         height: 50,
         width: 50,
-        marginLeft: 70,
         marginRight: 2,
         marginVertical: 65,
         borderRadius: 20,
-        flex: 0.3,
+        flex: 0.2,
         justifyContent: 'center',
         backgroundColor: '#343433',
     },
