@@ -20,7 +20,7 @@ export const useTopMovies = () => {
         fetchMovies();
     }, []);
 
-    console.log(typeof listMovies);
+    //console.log(typeof listMovies);
 
     return [listMovies];
 };

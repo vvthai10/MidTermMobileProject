@@ -38,7 +38,7 @@ const ChooseCinemaScreen = () => {
     }
 
     const route = useRoute();
-    console.warn(route.params);
+    //console.warn(route.params);
     const idMovie = route.params.idFilm;
     const nameMovie = route.params.nameFilm;
 
@@ -55,11 +55,11 @@ const ChooseCinemaScreen = () => {
         try {
             const res = await fetch(`/api/movie/time?id=${idMovie}&date=${dateChoose}`);
             const data = await res.json();
-            // console.log(`Data is: ${data}`);
+            // //console.log(`Data is: ${data}`);
             setInfoMovieDate(data || []);
             setIsLoading(false);
         } catch (error) {}
-        console.log('render');
+        //console.log('render');
     };
 
     const onChooseTimePressed = (nameCinema, date, time, room, idChairs) => {
@@ -73,16 +73,16 @@ const ChooseCinemaScreen = () => {
             idChairs: idChairs,
             // Giờ, ngày, phòng
         };
-        console.warn(detail);
+        //console.warn(detail);
         navigation.navigate('BookSeatScreen', detail);
     };
 
     useEffect(() => {
-        console.log('re render effect');
+        //console.log('re render effect');
         fetchDetailFilm(idMovie, dateChoose);
-        console.log(`Length: ${infoMovieDate.length}`);
-        console.log(`Length: ${infoMovieDate.detail_date}`);
-        console.log(infoMovieDate);
+        //console.log(`Length: ${infoMovieDate.length}`);
+        //console.log(`Length: ${infoMovieDate.detail_date}`);
+        //console.log(infoMovieDate);
     }, [dateChoose]);
 
     return (

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import StarRating from '../StarRating';
 
 const ListCardFilm = ({ movies = [] }) => {
-    console.warn(movies);
+    //console.warn(movies);
     const navigation = useNavigation();
 
     const onDetailFilm = (item) => {

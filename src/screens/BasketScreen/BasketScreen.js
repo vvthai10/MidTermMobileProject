@@ -14,7 +14,7 @@ const FoodTag = (props) => {
 };
 
 const Detail = (props) => {
-    console.log(props);
+    //console.log(props);
     const _sum = props.totalFoodPrice + props.totalSeatPrice;
     return (
         <View style={{ flexDirection: 'row' }}>
@@ -72,10 +72,10 @@ const BasketScreen = () => {
         var path = RNFS.DownloadDirectoryPath + '/seatDB.json';
         RNFS.writeFile(path, JSON.stringify(_seatState), 'utf8')
             .then((success) => {
-                console.log('FILE WRITTEN!');
+                //console.log('FILE WRITTEN!');
             })
             .catch((err) => {
-                console.log(err.message);
+                //console.log(err.message);
             });
         alert('Đặt vé thành công! ');
         const resultData = [
@@ -95,12 +95,12 @@ const BasketScreen = () => {
         path = RNFS.DownloadDirectoryPath + '/listTicket.json';
         RNFS.appendFile(path, JSON.stringify(resultData), 'utf8')
             .then((success) => {
-                console.log('FILE WRITTEN!');
+                //console.log('FILE WRITTEN!');
             })
             .catch((err) => {
-                console.log(err.message);
+                //console.log(err.message);
             });
-        console.log(resultData);
+        //console.log(resultData);
         navigation.navigate('Main');
     };
     const onPrevPressed = () => {

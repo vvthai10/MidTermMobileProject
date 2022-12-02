@@ -18,11 +18,11 @@ const DetailFilmScreen = () => {
         try {
             const res = await fetch(`/api/movie?id=${infoMovie.idFilm}`);
             const data = await res.json();
-            // console.log(`Data is: ${data}`);
+            // //console.log(`Data is: ${data}`);
             setMovie(data || []);
             setIsLoading(false);
         } catch (error) {}
-        console.log('render');
+        //console.log('render');
     };
 
     useEffect(() => {
@@ -33,9 +33,9 @@ const DetailFilmScreen = () => {
     const navigation = useNavigation();
 
     const onBookTicketsPressed = () => {
-        // console.warn('Buy tickets');
+        // //console.warn('Buy tickets');
         const params = { idFilm: infoMovie.idFilm, nameFilm: infoMovie.nameFilm };
-        console.warn(params);
+        //console.warn(params);
         navigation.navigate('ChooseCinema', params);
     };
 

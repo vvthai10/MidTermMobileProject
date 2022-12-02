@@ -16,7 +16,7 @@ const Seat = (props) => {
         }
     }
     const brdColor = props.brdColor;
-    const bkgrColor = (!isBooked) ? props.bkgrColor : 'grey';
+    const bkgrColor = !isBooked ? props.bkgrColor : 'grey';
     const [isPicked, setPicked] = useState(0);
     const onPress = () => {
         if (!isBooked) {
@@ -28,9 +28,8 @@ const Seat = (props) => {
                 props._psh(-seatPrice[props.isVip]);
                 props._addSeat(1, props.name);
             }
-        }
-        else {
-            alert('Chỗ đã được đặt!')
+        } else {
+            alert('Chỗ đã được đặt!');
         }
     };
     return (
@@ -194,11 +193,7 @@ const Footer = (props) => {
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={{ flexDirection: 'column', flex: 0.9 }}>
-                <View
-                    style={
-                        ([styles.footer_text_box], { flex: 0.7, marginTop: 20, marginLeft: 10, })
-                    }
-                >
+                <View style={([styles.footer_text_box], { flex: 0.7, marginTop: 20, marginLeft: 10 })}>
                     <Text>Rạp: {props._prevProps[0]}</Text>
                     <Text>Phòng Chiếu: {props._prevProps[1]}</Text>
                     <Text>Xuất Chiếu: {props._prevProps[2]}</Text>
@@ -223,15 +218,13 @@ const BookSeatScreen = () => {
 
     const navigation = useNavigation();
 
-
     var RNFS = require('react-native-fs');
     var path = RNFS.DownloadDirectoryPath + '/seatDB.json';
     const [seatState, setSeatState] = useState({});
-    RNFS.readFile(path, 'ascii')
-        .then((res) => {
-            console.log(res);
-            setSeatState(JSON.parse(res));
-        })
+    RNFS.readFile(path, 'ascii').then((res) => {
+        //console.log(res);
+        setSeatState(JSON.parse(res));
+    });
 
     let listBookedSeat = [];
     for (const i in seatState) {
@@ -275,17 +268,94 @@ const BookSeatScreen = () => {
             <Text style={styles.screen}>SCREEN</Text>
             <ScrollView style={{ borderWidth: 1, flex: 1 }} horizontal={true}>
                 <ScrollView>
-                    <SeatRow char="A" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="B" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="C" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="D" isVip={0} brdColor="green" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="E" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="F" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="G" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="H" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="J" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="K" isVip={1} brdColor="red" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
-                    <SeatRow char="L" isVip={2} bkgrColor="pink" psh={handleChangeTotal} addSeat={handleAddSeat} listBooked={listBookedSeat} />
+                    <SeatRow
+                        char="A"
+                        isVip={0}
+                        brdColor="green"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="B"
+                        isVip={0}
+                        brdColor="green"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="C"
+                        isVip={0}
+                        brdColor="green"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="D"
+                        isVip={0}
+                        brdColor="green"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="E"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="F"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="G"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="H"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="J"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="K"
+                        isVip={1}
+                        brdColor="red"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
+                    <SeatRow
+                        char="L"
+                        isVip={2}
+                        bkgrColor="pink"
+                        psh={handleChangeTotal}
+                        addSeat={handleAddSeat}
+                        listBooked={listBookedSeat}
+                    />
                 </ScrollView>
             </ScrollView>
             <View style={styles.description}>

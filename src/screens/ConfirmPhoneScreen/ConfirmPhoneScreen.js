@@ -14,18 +14,18 @@ const ConfirmPhoneScreen = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    console.warn(errors);
+    //console.warn(errors);
     const onConfirmPressed = () => {
-        console.warn('Confirm');
+        //console.warn('Confirm');
         navigation.navigate('Main');
     };
 
     const onResendPressed = () => {
-        console.warn('Resend');
+        //console.warn('Resend');
     };
 
     const onSignInPressed = () => {
-        console.warn('sign in');
+        //console.warn('sign in');
         navigation.navigate('SignIn');
     };
 

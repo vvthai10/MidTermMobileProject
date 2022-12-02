@@ -9,12 +9,12 @@ const ForgotPasswordScreen = () => {
     const [phone, setPhone] = useState('');
 
     const onConfirmPressed = () => {
-        console.warn('Confirm');
+        //console.warn('Confirm');
         navigation.navigate('NewPassword');
     };
 
     const onSignInPressed = () => {
-        console.warn('sign in');
+        //console.warn('sign in');
         navigation.navigate('SignIn');
     };
 

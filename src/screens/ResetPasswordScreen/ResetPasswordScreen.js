@@ -10,12 +10,12 @@ const ResetPasswordScreen = () => {
     const [newPassword, setNewPassword] = useState('');
 
     const onSubmitPressed = () => {
-        console.warn('Confirm');
+        //console.warn('Confirm');
         navigation.navigate('SignIn');
     };
 
     const onSignInPressed = () => {
-        console.warn('sign in');
+        //console.warn('sign in');
         navigation.navigate('SignIn');
     };
 

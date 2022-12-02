@@ -18,7 +18,7 @@ const SignInScreen = () => {
         formState: { errors },
     } = useForm();
 
-    // console.warn(ListUsers.filter((e) => e.phone === '0987654321'));
+    // //console.warn(ListUsers.filter((e) => e.phone === '0987654321'));
 
     const { height } = useWindowDimensions();
 
@@ -33,11 +33,11 @@ const SignInScreen = () => {
         try {
             const res = await fetch(`/api/login?phone=${phone}`);
             const data = await res.json();
-            // console.log(`Data is: ${data}`);
+            // //console.log(`Data is: ${data}`);
             setInfoUser(data || []);
 
             if (infoUser.length === 0) {
-                console.log('Không tồn tại user');
+                //console.log('Không tồn tại user');
                 setInfonotify({
                     title: 'Tài khoản không tồn tại',
                     description: 'Chưa có số tài khoản nào đăng kí bằng số điện thoại này.',
@@ -56,10 +56,10 @@ const SignInScreen = () => {
         } catch (error) {}
     };
 
-    // console.log(ListUsers);
+    // //console.log(ListUsers);
 
     const onSignInPressed = async (data) => {
-        // console.log('Check USer');
+        // //console.log('Check USer');
         const phone = data.phonenumber;
         const password = data.password;
 
@@ -67,7 +67,7 @@ const SignInScreen = () => {
         const user = await res.json();
 
         if (user.length === 0) {
-            console.log('Không tồn tại user');
+            //console.log('Không tồn tại user');
             setInfonotify({
                 title: 'Tài khoản không tồn tại',
                 description: 'Chưa có số tài khoản nào đăng kí bằng số điện thoại này.',
@@ -84,19 +84,19 @@ const SignInScreen = () => {
             signIn(user[0]);
         }
 
-        // console.log(`${phone} ${password}`);
+        // //console.log(`${phone} ${password}`);
         // await fetchCheckUser(phone, password);
 
-        // console.log(infoUser[0].password);
+        // //console.log(infoUser[0].password);
     };
 
     // const onForgotPasswordPressed = () => {
-    //     console.warn('Forgot password');
+    //     //console.warn('Forgot password');
     //     navigation.navigate('ForgotPassword');
     // };
 
     const onSignUpPressed = () => {
-        // console.log(data);
+        // //console.log(data);
         navigation.navigate('SignUp');
     };
     const changeErrorType = (type) => {
@@ -141,7 +141,7 @@ const SignInScreen = () => {
                     animationType="fade"
                     visible={isHasNotify}
                     nRequestClose={() => {
-                        console.log(true);
+                        //console.log(true);
                     }}
                 >
                     <NotifyModal changeErrorType={changeErrorType} info={infoNotify} />

@@ -15,7 +15,7 @@ const MoviesLibraryScreen = () => {
         fetchMovies(type, category);
     }, [type, category, fetchMovies]);
 
-    console.log(movies.length);
+    //console.log(movies.length);
 
     return (
         <View>

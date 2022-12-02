@@ -21,18 +21,18 @@ const ShoppingCartScreen = () => {
 
     const ReadFile = async () => {
         try {
-            console.warn('start');
+            //console.warn('start');
             const userToken = await AsyncStorage.getItem('userToken');
             const res = await RNFS.readFile(path, 'utf8');
 
-            // console.log('next');
-            // console.log(JSON.parse(res));
+            // //console.log('next');
+            // //console.log(JSON.parse(res));
             // let data = JSON.parse(res);
-            // console.log(res.find(({ user }) => user === userToken));
+            // //console.log(res.find(({ user }) => user === userToken));
             let data = res.replace('][', ',');
             data = JSON.parse(data);
             // data = data.find(({ user }) => user === userToken);
-            // console.log('finish');
+            // //console.log('finish');
             addListTicket(data);
         } catch (error) {}
     };
@@ -40,7 +40,7 @@ const ShoppingCartScreen = () => {
     useEffect(() => {
         ReadFile();
     }, []);
-    console.log(listTicket);
+    //console.log(listTicket);
 
     return (
         <View style={styles.container}>

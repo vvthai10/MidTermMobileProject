@@ -27,12 +27,12 @@ const SignUpScreen = () => {
     };
 
     const fetchAddUser = async (params) => {
-        console.log(params);
+        //console.log(params);
         try {
             const res = await fetch(`/api/signup`, params);
             const data = await res.json();
             // setInfoUser(data || []);
-            console.log(data);
+            //console.log(data);
         } catch (error) {}
     };
 
@@ -51,7 +51,7 @@ const SignUpScreen = () => {
             });
             setHasNotify(true);
         } else {
-            console.log('Đăng kí');
+            //console.log('Đăng kí');
             // Trường hợp 2: Đăng kí thành công
             const params = {
                 method: 'POST',
@@ -67,16 +67,16 @@ const SignUpScreen = () => {
     };
 
     const onSignInPressed = () => {
-        console.warn('Sign in');
+        //console.warn('Sign in');
         navigation.navigate('SignIn');
     };
 
     const onTermOfUsePressed = () => {
-        console.warn('onTermOfUsePressed');
+        //console.warn('onTermOfUsePressed');
     };
 
     const onPrivacyPressed = () => {
-        console.warn('onPrivacyPressed');
+        //console.warn('onPrivacyPressed');
     };
 
     const changeErrorType = (type) => {
@@ -133,7 +133,7 @@ const SignUpScreen = () => {
                     animationType="fade"
                     visible={isHasNotify}
                     nRequestClose={() => {
-                        console.log(true);
+                        //console.log(true);
                     }}
                 >
                     <NotifyModal changeErrorType={changeErrorType} info={infoNotify} />

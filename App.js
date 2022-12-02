@@ -21,7 +21,7 @@ const App = () => {
     const RNFS = require('react-native-fs');
     const path = RNFS.DownloadDirectoryPath + '/seatDB.json';
     // write the file
-    
+
     RNFS.writeFile(path, JSON.stringify(seatState), 'utf8')
         .then((success) => {
             console.log('FILE WRITTEN!');
@@ -124,8 +124,6 @@ const App = () => {
         <AuthContext.Provider value={authContext}>
             <SafeAreaView style={styles.root}>
                 {/* <SignInScreen /> */}
-                {console.log(loginState.userToken)}
-
                 {loginState.userToken != null ? <TabNavigator /> : <StackNavigationOfLogin />}
             </SafeAreaView>
         </AuthContext.Provider>

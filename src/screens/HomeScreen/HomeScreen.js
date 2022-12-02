@@ -59,7 +59,7 @@ const HomeScreen = () => {
     ];
 
     const [movies] = useTopMovies();
-    // console.log(movies);
+    // //console.log(movies);
 
     // const movies = ListMovies.filter(GetDateBefore).filter((movie) => movie.category.includes("Phim"));
 
