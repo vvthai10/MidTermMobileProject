@@ -21,7 +21,7 @@ const DetailFilmScreen = () => {
             // console.log(`Data is: ${data}`);
             setMovie(data || []);
             setIsLoading(false);
-        } catch (error) {}
+        } catch (error) { }
         console.log('render');
     };
 
@@ -34,7 +34,7 @@ const DetailFilmScreen = () => {
 
     const onBookTicketsPressed = () => {
         // console.warn('Buy tickets');
-        navigation.navigate('ChooseCinema', { idFilm: infoMovie.idFilm, nameFilm: infoMovie.name });
+        navigation.navigate('ChooseCinema', { idFilm: infoMovie.idFilm, nameFilm: infoMovie.nameFilm });
     };
 
     if (isLoading) {

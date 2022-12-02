@@ -13,19 +13,22 @@ const FoodTag = (props) => {
 
 const Detail = (props) => {
     console.log(props);
+    const _sum = props.totalFoodPrice + props.totalSeatPrice;
     return (
         <View style={{ flexDirection: 'row' }}>
             <View style={styles.img_container}>
                 {/* <Image style={styles.img} source={require('./temp.jpg')} /> */}
             </View>
-            <View style={{ margin: 5, flex: 0.7 }}>
+            <View style={{ margin: 5, flex: 0.8 }}>
                 <Text style={{ fontWeight: 'bold' }}>{props.filmName}</Text>
+                <Text>{props.slot}</Text>
+
                 <Text>{props.time}</Text>
                 <Text>{props.cinName}</Text>
                 <Text>{'Cinema ' + props.room}</Text>
                 <Text>{'Seats: ' + props.listSeat}</Text>
                 <Text style={{ color: '#AD2B33', fontWeight: 'bold' }}>
-                    {'Total Payment: ' + props.totalFoodPrice + props.totalSeatPrice}
+                    {'Total Payment: ' + _sum}
                 </Text>
             </View>
         </View>
@@ -33,17 +36,10 @@ const Detail = (props) => {
 };
 
 const BasketScreen = () => {
-    const props = {
-        filmName: 'ONE PIECE',
-        cinName: 'CGV Hung Vuong',
-        room: 'C12',
-        slot: '12',
-        time: '17:30 - 19:25',
-        listSeat: ['A1', 'A2', 'A3'],
-        totalSeatPrice: 300,
-        listPickedFood: [{ text: 'Food1', price: 400, nums: 2 }],
-        totalFoodPrice: 50000,
-    };
+    const route = useRoute();
+    const props = route.params;
+    console.log(props);
+
     const navigation = useNavigation();
     const onNextPressed = () => {
         // navigation.navigate('Giỏ hàng');
@@ -53,9 +49,7 @@ const BasketScreen = () => {
     };
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.label_container} onPress={onPrevPressed}>
-                <Text style={styles.back}>BACK</Text>
-            </TouchableOpacity>
+
 
             <View style={styles.datail_container}>
                 <Detail
@@ -63,7 +57,7 @@ const BasketScreen = () => {
                     time={props.time}
                     cinName={props.cinName}
                     room={props.room}
-                    slot={props.slot}
+                    slot={props.date}
                     listSeat={props.listSeat}
                     totalSeatPrice={props.totalSeatPrice}
                     totalFoodPrice={props.totalFoodPrice}
@@ -86,7 +80,7 @@ const BasketScreen = () => {
             <View style={{ flex: 0.4 }}>
                 <ScrollView style={[styles.list_food]}>
                     {props.listPickedFood.map((item, index) => {
-                        return <FoodTag text={item.text} nums={item.nums} />;
+                        return <FoodTag key={index} text={item.text} nums={item.nums} />;
                     })}
                 </ScrollView>
             </View>
@@ -94,7 +88,7 @@ const BasketScreen = () => {
                 <Text style={styles.label_text}> Sub Total</Text>
                 <Text style={{ marginLeft: 10, textAlignVertical: 'center' }}> {props.totalFoodPrice} </Text>
             </View>
-            <View style={{ flex: 0.2, borderTopWidth: 1.5 }}>
+            <View style={{ flex: 0.3, borderTopWidth: 1.5 }}>
                 <Text style={{ margin: 5 }}>
                     I agree to the Term of Use and am purchasing tickets for age appropriate audience.
                 </Text>
@@ -114,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FDFCF0',
     },
     datail_container: {
-        flex: 0.3,
+        flex: 0.4,
     },
     label_container: {
         flex: 0.1,

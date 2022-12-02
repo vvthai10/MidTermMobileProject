@@ -98,19 +98,17 @@ const Footer = (props) => {
                 res = res + element.nums * element.price;
             }
         });
+        props.addTotal(res);
         return res;
     };
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-            <TouchableOpacity style={styles.footer_click_btn} onPress={props.onPrevPressed}>
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15 }}>PREV</Text>
-            </TouchableOpacity>
 
             <View style={{ flex: 0.6, margin: 10 }}>
                 <ScrollView style={styles.footer_text_box}>
                     {list.map((item, index) => {
                         if (item.nums != 0) {
-                            return <FoodText text={item.text} num={item.nums} />;
+                            return <FoodText key={index} text={item.text} num={item.nums} />;
                         }
                     })}
                 </ScrollView>
@@ -127,15 +125,12 @@ const Footer = (props) => {
 };
 
 const BookFoodScreen = () => {
-    const navigation = useNavigation();
-    const onNextPressed = () => {
-        console.log('Basket');
-        navigation.navigate('Basket');
-    };
-    const onPrevPressed = () => {
-        navigation.navigate('BookSeatScreen');
-    };
+    const route = useRoute();
+    const props = route.params;
+    console.log(props);
 
+    const navigation = useNavigation();
+    const [total, addTotal] = useState(0);
     const [listPick, addListPick] = useState(listPicked);
     // console.log(listPick);
     const handleAddFoodDetail = (name, num, price) => {
@@ -143,15 +138,39 @@ const BookFoodScreen = () => {
         console.log(l);
         addListPick([...l, { text: name, nums: num, price: price }]);
     };
+
+    const onNextPressed = () => {
+        let _list = listPick.filter((e) => e.nums != 0);
+        detail = {
+            id: props.id,
+            filmName: props.filmName,
+            cinName: props.cinName,
+            time: props.time,
+            room: props.room,
+            idChairs: props.idChairs,
+            listSeat: props.listSeat,
+            totalSeatPrice: props.totalSeatPrice,
+            date: props.date,
+            listPickedFood: _list,
+            totalFoodPrice: total,
+        }
+        navigation.navigate('Basket', detail);
+    }
+
+
+
+    const onPrevPressed = () => {
+        navigation.navigate('BookSeatScreen');
+    };
     return (
         <View style={styles.container}>
             <ScrollView style={styles.list_food}>
                 {listPicked.map((item, index) => {
-                    return <Food id={index} addFood={handleAddFoodDetail} />;
+                    return <Food key={index} id={index} addFood={handleAddFoodDetail} />;
                 })}
             </ScrollView>
             <View style={styles.footer}>
-                <Footer list={listPick} onNextPressed={onNextPressed} onPrevPressed={onPrevPressed} />
+                <Footer list={listPick} addTotal={addTotal} onNextPressed={onNextPressed} onPrevPressed={onPrevPressed} />
             </View>
         </View>
     );
@@ -220,11 +239,13 @@ const styles = StyleSheet.create({
         //justifyContent: 'center',
     },
     footer_click_btn: {
-        marginLeft: 2,
+        height: 50,
+        width: 50,
+        marginLeft: 70,
         marginRight: 2,
         marginVertical: 65,
         borderRadius: 20,
-        flex: 0.2,
+        flex: 0.3,
         justifyContent: 'center',
         backgroundColor: '#343433',
     },

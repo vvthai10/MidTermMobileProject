@@ -168,9 +168,6 @@ const Footer = (props) => {
     const list = _();
     return (
         <View style={{ flexDirection: 'row', flex: 1 }}>
-            <TouchableOpacity style={styles.footer_click_btn} onPress={props.onPrevPressed}>
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15 }}>PREV</Text>
-            </TouchableOpacity>
 
             <View style={{ flexDirection: 'column', flex: 0.6 }}>
                 <View
@@ -190,7 +187,7 @@ const Footer = (props) => {
             </View>
 
             <TouchableOpacity style={styles.footer_click_btn} onPress={props.onNextPressed}>
-                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15 }}>NEXT</Text>
+                <Text style={{ color: 'white', textAlign: 'center', fontSize: 15, }}>NEXT</Text>
             </TouchableOpacity>
         </View>
     );
@@ -199,15 +196,9 @@ const Footer = (props) => {
 const BookSeatScreen = () => {
     const route = useRoute();
     const props = route.params;
-    console.log(props);
+    console.log(`Seat  ${props}`);
 
     const navigation = useNavigation();
-    const onNextPressed = () => {
-        navigation.navigate('BookFood');
-    };
-    const onPrevPressed = () => {
-        navigation.navigate('ChooseCinema');
-    };
 
     const [total, pushTotal] = useState(0);
     const [selectedSeat, changeSelectedSeat] = useState([]);
@@ -221,7 +212,23 @@ const BookSeatScreen = () => {
             changeSelectedSeat(list);
         }
     };
-
+    const onNextPressed = () => {
+        const detail = {
+            id: props.idMovie,
+            filmName: props.filmName,
+            cinName: props.cinName,
+            time: props.time,
+            room: props.room,
+            date: props.date,
+            idChairs: props.idChairs,
+            listSeat: selectedSeat,
+            totalSeatPrice: total,
+        };
+        navigation.navigate('BookFood', detail);
+    };
+    const onPrevPressed = () => {
+        navigation.navigate('ChooseCinema');
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.screen}>SCREEN</Text>
@@ -247,7 +254,7 @@ const BookSeatScreen = () => {
                 <Footer
                     _total={total}
                     _listSeat={selectedSeat}
-                    _prevProps={[props.cinName, props.room, props.slot]}
+                    _prevProps={[props.cinName, props.room, props.time]}
                     onNextPressed={onNextPressed}
                     onPrevPressed={onPrevPressed}
                 />
@@ -289,16 +296,19 @@ const styles = StyleSheet.create({
         flex: 0.5,
     },
     footer_click_btn: {
-        marginLeft: 2,
+        height: 50,
+        width: 50,
+        marginLeft: 70,
         marginRight: 2,
         marginVertical: 65,
         borderRadius: 20,
-        flex: 0.2,
+        flex: 0.3,
         justifyContent: 'center',
         backgroundColor: '#343433',
     },
     footer_text_box: {
         justifyContent: 'center',
+        flex: 0.7,
     },
 });
 

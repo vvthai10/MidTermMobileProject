@@ -57,21 +57,22 @@ const ChooseCinemaScreen = () => {
             // console.log(`Data is: ${data}`);
             setInfoMovieDate(data || []);
             setIsLoading(false);
-        } catch (error) {}
+        } catch (error) { }
         console.log('render');
     };
 
-    const onChooseTimePressed = (nameCinema, time, room, idChairs) => {
+    const onChooseTimePressed = (nameCinema, date, time, room, idChairs) => {
         const detail = {
             id: idMovie,
             filmName: nameMovie,
             cinName: nameCinema,
+            date: date,
             time: time,
             room: room,
             idChairs: idChairs,
             // Giờ, ngày, phòng
         };
-        console.log(detail);
+        console.warn(detail);
         navigation.navigate('BookSeatScreen', detail);
     };
 
@@ -113,6 +114,7 @@ const ChooseCinemaScreen = () => {
                                                         onPress={() => [
                                                             onChooseTimePressed(
                                                                 item.ten_rap,
+                                                                dateChoose,
                                                                 value.gio,
                                                                 value.ten_phong,
                                                                 value.chi_tiet_ghe,
