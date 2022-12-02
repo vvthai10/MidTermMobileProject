@@ -29,14 +29,32 @@ const SignInScreen = () => {
     const [isHasNotify, setHasNotify] = useState(false);
     const [infoNotify, setInfonotify] = useState();
 
-    const fetchCheckUser = useCallback(async (phone) => {
+    const fetchCheckUser = async (phone, password) => {
         try {
             const res = await fetch(`/api/login?phone=${phone}`);
             const data = await res.json();
             // console.log(`Data is: ${data}`);
             setInfoUser(data || []);
+
+            if (infoUser.length === 0) {
+                console.log('Không tồn tại user');
+                setInfonotify({
+                    title: 'Tài khoản không tồn tại',
+                    description: 'Chưa có số tài khoản nào đăng kí bằng số điện thoại này.',
+                });
+                setHasNotify(true);
+            } else if (password !== infoUser[0].password) {
+                setInfonotify({
+                    title: 'Mật khẩu không chính xác',
+                    description: 'Mật khẩu bạn nhập chưa chính xác',
+                });
+                setHasNotify(true);
+            } else {
+                // Sau khi kiểm tra user có tồn tại trong tài khoản thì mới tới bước tiếp theo
+                signIn(infoUser[0]);
+            }
         } catch (error) {}
-    }, []);
+    };
 
     // console.log(ListUsers);
 
@@ -45,19 +63,17 @@ const SignInScreen = () => {
         const phone = data.phonenumber;
         const password = data.password;
 
-        // console.log(`${phone} ${password}`);
-        await fetchCheckUser(phone);
+        const res = await fetch(`/api/login?phone=${phone}`);
+        const user = await res.json();
 
-        // console.log(infoUser[0].password);
-
-        if (infoUser.length === 0) {
+        if (user.length === 0) {
             console.log('Không tồn tại user');
             setInfonotify({
                 title: 'Tài khoản không tồn tại',
                 description: 'Chưa có số tài khoản nào đăng kí bằng số điện thoại này.',
             });
             setHasNotify(true);
-        } else if (password !== infoUser[0].password) {
+        } else if (password !== user[0].password) {
             setInfonotify({
                 title: 'Mật khẩu không chính xác',
                 description: 'Mật khẩu bạn nhập chưa chính xác',
@@ -65,8 +81,13 @@ const SignInScreen = () => {
             setHasNotify(true);
         } else {
             // Sau khi kiểm tra user có tồn tại trong tài khoản thì mới tới bước tiếp theo
-            signIn(infoUser[0]);
+            signIn(user[0]);
         }
+
+        // console.log(`${phone} ${password}`);
+        // await fetchCheckUser(phone, password);
+
+        // console.log(infoUser[0].password);
     };
 
     // const onForgotPasswordPressed = () => {

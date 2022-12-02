@@ -10,30 +10,47 @@ if (window.server) {
 
 const GetDateBefore = (item) => {
     let curDate = new Date();
-    curDate.setDate(curDate.getDate() + 5);
-    curDate = curDate.toLocaleDateString();
-    curDate = curDate.split('/');
-    curDate = `${curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`}/${
-        curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`
-    }/${curDate[2]}`;
     const date = item.premiere;
+
+    // curDate.setDate(curDate.getDate() + 5);
+    curDate = curDate.toLocaleDateString();
+
+    var date1 = new Date(curDate);
+    var date2 = new Date(date);
+
+    // curDate = curDate.split('/');
+    // curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
+    //     curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
+    // }/${curDate[2]}`;
     // console.log(`ngay khoi chieu: ${date}`);
     // console.log(`ngay co suat chieu: ${curDate}`);
-    return curDate >= date;
+
+    //best to use .getTime() to compare dates
+    // if (date1.toLocaleDateString() >= date2.toLocaleDateString()) {
+    //     console.log('Phim đã được công chiếu');
+    // } else {
+    //     console.log('Hummm.');
+    // }
+
+    return date1.toLocaleDateString() >= date2.toLocaleDateString();
 };
 
 const GetDateAfter = (item) => {
     let curDate = new Date();
-    curDate.setDate(curDate.getDate() + 5);
-    curDate = curDate.toLocaleDateString();
-    curDate = curDate.split('/');
-    curDate = `${curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`}/${
-        curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`
-    }/${curDate[2]}`;
     const date = item.premiere;
+    // curDate.setDate(curDate.getDate() + 5);
+    curDate = curDate.toLocaleDateString();
+    var date1 = new Date(curDate);
+    var date2 = new Date(date);
+
+    // curDate = curDate.split('/');
+    // curDate = `${curDate[1] < 10 ? `0${curDate[1]}` : `${curDate[1]}`}/${
+    //     curDate[0] < 10 ? `0${curDate[0]}` : `${curDate[0]}`
+    // }/${curDate[2]}`;
+    //
     // console.log(`ngay khoi chieu: ${date}`);
     // console.log(`ngay co suat chieu: ${curDate}`);
-    return curDate < date;
+    return date1.toLocaleDateString() >= date2.toLocaleDateString();
 };
 
 createServer({
@@ -48,9 +65,9 @@ createServer({
         this.get('/movies', (schema, req) => {
             const type = req.queryParams.type;
             const categoryNeed = req.queryParams.category;
-            console.warn(categoryNeed.slice(5).toLowerCase());
+            // console.warn(categoryNeed.slice(5).toLowerCase());
 
-            console.error(`Type is: ${type}`);
+            // console.error(`Type is: ${type}`);
 
             // var date = Date.parse(curDate);
             // console.warn(curDate >= '12/30/2022');

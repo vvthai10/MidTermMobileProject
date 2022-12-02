@@ -29,7 +29,7 @@ const PersonalScreen = () => {
                 <Image style={StyleSheet.flatten([styles.imageA3])} resizeMode="cover" source={User} />
                 <Text style={StyleSheet.flatten([styles.textPr])}>{name}</Text>
                 <Pressable onPress={signOut} style={styles.button}>
-                    <Text>Sign out</Text>
+                    <Text style={{ fontSize: 12 }}>Sign out</Text>
                 </Pressable>
             </View>
             <View useThemeGutterPadding={true} elevation={0}>
