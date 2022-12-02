@@ -62,17 +62,18 @@ const ChooseCinemaScreen = () => {
         console.log('render');
     };
 
-    const onChooseTimePressed = (nameCinema, time, room, idChairs) => {
+    const onChooseTimePressed = (nameCinema, date, time, room, idChairs) => {
         const detail = {
             id: idMovie,
             filmName: nameMovie,
             cinName: nameCinema,
+            date: date,
             time: time,
             room: room,
             idChairs: idChairs,
             // Giờ, ngày, phòng
         };
-        console.log(detail);
+        console.warn(detail);
         navigation.navigate('BookSeatScreen', detail);
     };
 
@@ -114,6 +115,7 @@ const ChooseCinemaScreen = () => {
                                                         onPress={() => [
                                                             onChooseTimePressed(
                                                                 item.address,
+                                                                dateChoose,
                                                                 value.hour,
                                                                 value.room,
                                                                 value.seats,
