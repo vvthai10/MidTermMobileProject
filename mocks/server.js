@@ -1,6 +1,7 @@
 import { createServer } from 'miragejs';
 import ListMovies from '../assets/data/listMovies';
 import ListUsers from '../assets/data/listUsers';
+import ListDetailMovies from '../assets/data/listDetailMovies';
 
 if (window.server) {
     window.server.shutdown();
@@ -64,10 +65,26 @@ createServer({
             return ListUsers;
         });
 
-        this.get("/movies", (schema, request) => {
-            let id = request.params.id
+        this.get('/movie/time', (schema, req) => {
+            let idFilm = req.queryParams.id;
+            let date = req.queryParams.date;
+            date = date.split('/');
+            let dateNeed = `${date[2]}/${date[1] < 9 ? `0${date[1]}` : `${date[1]}`}/${date[3]}`;
 
-            return schema.movies.find(id)
-        })
+            // console.log(req.queryParams);
+            let listDetail = ListDetailMovies.find(({ id }) => id === idFilm);
+            listDetail = listDetail.detail;
+
+            let res = listDetail.find(({ date }) => date === dateNeed);
+            // console.log(`Danh sach co chieu: ${idFilm}`);
+            // console.log(res);
+
+            return res;
+        });
+        this.get('/movie', (schema, req) => {
+            let idFilm = req.queryParams.id;
+
+            return ListMovies.find(({ id }) => id === idFilm);
+        });
     },
 });

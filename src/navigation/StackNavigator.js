@@ -11,6 +11,10 @@ import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import MoviesLibraryScreen from '../screens/MoviesLibraryScreen';
 import DetailFilmScreen from '../screens/DetailFilmScreen';
+import ChooseCinemaScreen from '../screens/ChooseCinemaScreen';
+import BookSeatScreen from '../screens/BookSeatScreen';
+import BookFoodScreen from '../screens/BookFoodScreen';
+import BasketScreen from '../screens/BasketScreen';
 
 import TabNavigator from './TabNavigator';
 
@@ -44,6 +48,18 @@ const StackNavigationOfMain = () => {
                 component={DetailFilmScreen}
                 options={({ route }) => ({ title: route.params.nameFilm })}
             />
+            <Stack.Screen
+                name="ChooseCinema"
+                component={ChooseCinemaScreen}
+                options={({ route }) => ({ title: 'Đặt vé' })}
+            />
+            <Stack.Screen
+                name="BookSeatScreen"
+                component={BookSeatScreen}
+                options={({ route }) => ({ title: 'Đặt vé' })}
+            />
+            <Stack.Screen name="BookFood" component={BookFoodScreen} options={({ route }) => ({ title: 'Đặt vé' })} />
+            <Stack.Screen name="Basket" component={BasketScreen} options={({ route }) => ({ title: 'Đặt vé' })} />
         </Stack.Navigator>
     );
 };
