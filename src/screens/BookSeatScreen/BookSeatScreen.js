@@ -9,7 +9,6 @@ const seatPrice = [45000, 60000, 100000];
 
 const Seat = (props) => {
     let isBooked = 0;
-    console.log(props.listBooked)
     for (const i in props.listBooked) {
         if (props.listBooked[i] == props.name) {
             isBooked = 1;
@@ -233,22 +232,13 @@ const BookSeatScreen = () => {
             console.log(res);
             setSeatState(JSON.parse(res));
         })
-        .catch((err) => {
-            console.log(err.message, err.code);
-        });
 
-    console.log(seatState)
-
-
-    //console.log(seatState)
     let listBookedSeat = [];
     for (const i in seatState) {
         if (seatState[i].id == props.idChairs) {
             listBookedSeat = seatState[i].list;
         }
     }
-
-
 
     const [total, pushTotal] = useState(0);
     const [selectedSeat, changeSelectedSeat] = useState([]);
@@ -273,6 +263,7 @@ const BookSeatScreen = () => {
             idChairs: props.idChairs,
             listSeat: selectedSeat,
             totalSeatPrice: total,
+            seatState: seatState,
         };
         navigation.navigate('BookFood', detail);
     };

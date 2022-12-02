@@ -126,7 +126,6 @@ const Footer = (props) => {
 const BookFoodScreen = () => {
     const route = useRoute();
     const props = route.params;
-    console.log(props);
 
     const navigation = useNavigation();
     const [total, addTotal] = useState(0);
@@ -134,7 +133,6 @@ const BookFoodScreen = () => {
     
     const handleAddFoodDetail = (name, num, price) => {
         const l = listPick.filter((element) => element.text != name);
-        console.log(l);
         addListPick([...l, { text: name, nums: num, price: price }]);
     };
 
@@ -152,6 +150,7 @@ const BookFoodScreen = () => {
             date: props.date,
             listPickedFood: _list,
             totalFoodPrice: total,
+            seatState: props.seatState,
         };
         navigation.navigate('Basket', detail);
     };

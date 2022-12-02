@@ -18,9 +18,10 @@ const App = () => {
     // const [userToken, setUserToken] = useState(null);
 
     const seatState = require('./assets/data/seat.json');
-    var RNFS = require('react-native-fs');
-    var path = RNFS.DownloadDirectoryPath + '/seatDB.json';
+    const RNFS = require('react-native-fs');
+    const path = RNFS.DownloadDirectoryPath + '/seatDB.json';
     // write the file
+    
     RNFS.writeFile(path, JSON.stringify(seatState), 'utf8')
         .then((success) => {
             console.log('FILE WRITTEN!');
